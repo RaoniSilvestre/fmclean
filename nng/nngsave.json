@@ -146,7 +146,8 @@
     },
     {
       "lean": "example (P Q R : Type) : (P → (Q → R)) → ((P → Q) → (P → R)) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h1,\r\nintro h2,\r\nintro p,\r\nhave q := h2(p),\r\nhave h3 := h1(p),\r\nhave r := h3(q),\r\nexact r,\r\n\r\n"
     },
     {
       "lean": "example (P Q F : Type) : (P → Q) → ((Q → F) → (P → F)) :=\n",
