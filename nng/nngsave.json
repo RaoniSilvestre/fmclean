@@ -54,23 +54,27 @@
     },
     {
       "lean": "lemma zero_mul (m : mynat) : 0 * m = 0 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction m with x hx,\nrw mul_zero 0,\nrefl,\nrw mul_succ,\nrw add_zero (0*x),\nrw hx,\nrefl,\n\n"
     },
     {
       "lean": "lemma mul_one (m : mynat) : m * 1 = m :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "rw one_eq_succ_zero,\nrw mul_succ m 0,\nrw mul_zero m,\nrw zero_add m,\nrefl,\n\n\n"
     },
     {
       "lean": "lemma one_mul (m : mynat) : 1 * m = m :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction m with x hx,\nrw mul_zero 1,\nrefl,\n\nrw mul_succ 1,\nrw hx,\nrw succ_eq_add_one x,\nrefl,\n\n\n\n"
     },
     {
       "lean": "lemma mul_add (t a b : mynat) : t * (a + b) = t * a + t * b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction b with x hx,\nrw add_zero a,\nrw mul_zero t,\nrw add_zero (t*a),\nrefl,\n\nrw add_succ a,\n\nrw mul_succ t,\nrw hx,\nrw mul_succ t x,\nrw add_assoc (t*a) (t*x) t,\nrefl,\n\n\n"
     },
     {
       "lean": "lemma mul_assoc (a b c : mynat) : (a * b) * c = a * (b * c) :=\n",
-      "editorText": "sorry"
+      "editorText": "induction c with x hx,\nrw mul_zero b,\nrw mul_zero a,\nrw mul_zero (a * b),\nrefl,\n\nrw mul_succ (a*b) x,\nrw hx,\nrw mul_succ b x,\nrw mul_add a (b*x) b,\nrefl,\n"
     },
     {
       "lean": "lemma succ_mul (a b : mynat) : succ a * b = a * b + b :=\n",
@@ -183,7 +187,7 @@
     {
       "lean": "lemma maze (P Q R S T U: Prop)\n(p : P)\n(h : P → Q)\n(i : Q → R)\n(j : Q → T)\n(k : S → T)\n(l : T → U)\n: U :=\n",
       "isSolved": true,
-      "editorText": "apply l,\napply j,\napply h,\nexact p,\n"
+      "editorText": "have q := h(p),\nhave t := j(q),\nhave u := l(t),\nexact u,\n"
     },
     {
       "lean": "example (P Q : Prop) : P → (Q → P) :=\n",
@@ -233,7 +237,7 @@
     {
       "lean": "lemma iff_trans (P Q R : Prop) : (P ↔ Q) → (Q ↔ R) → (P ↔ R) :=\n",
       "isSolved": true,
-      "editorText": "intro h1,\nintro h2,\nrw h1,\nrw h2,\n"
+      "editorText": "intro h1,\nintro h2,\ncases h1 with hpq hqp,\ncases h2 with hqr hrq,\nsplit,\nintro p,\nhave q := hpq(p),\nhave r := hqr(q),\nexact r,\nintro r,\nhave q := hrq(r),\nhave p := hqp(q),\nexact p,\n"
     },
     {
       "lean": "example (P Q : Prop) : Q → (P ∨ Q) :=\n",
