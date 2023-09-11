@@ -279,39 +279,47 @@
     },
     {
       "lean": "theorem succ_inj' {a b : mynat} (hs : succ(a) = succ(b)) :  a = b := \n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "have h1 := succ_inj(hs),\nexact h1,\n\n"
     },
     {
       "lean": "theorem succ_succ_inj {a b : mynat} (h : succ(succ(a)) = succ(succ(b))) :  a = b := \n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "apply succ_inj,\napply succ_inj,\nexact h,\n"
     },
     {
       "lean": "theorem succ_eq_succ_of_eq {a b : mynat} : a = b → succ(a) = succ(b) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\nrw h,\nrefl,\n"
     },
     {
       "lean": "theorem succ_eq_succ_iff (a b : mynat) : succ a = succ b ↔ a = b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "split,\nexact succ_inj,\n\nintro h,\nrw h,\nrefl,\n\n"
     },
     {
       "lean": "theorem add_right_cancel (a t b : mynat) : a + t = b + t → a = b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\ninduction t with x hx,\nrw add_zero at h,\nrw add_zero at h,\nrw h,\nrefl,\n\nrw add_succ a x at h,\nrw add_succ b x at h,\nhave h2 := succ_inj(h),\n\nrw hx,\n\nrefl,\n\nexact h2,\n\n"
     },
     {
       "lean": "theorem add_left_cancel (t a b : mynat) : t + a = t + b → a = b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "rw add_comm t a, \nrw add_comm t b,\nexact add_right_cancel a t b,\n"
     },
     {
       "lean": "theorem add_right_cancel_iff (t a b : mynat) :  a + t = b + t ↔ a = b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "split,\nexact add_right_cancel a t b,\n\nintro h,\nrw h,\nrefl,\n"
     },
     {
       "lean": "lemma eq_zero_of_add_right_eq_self {a b : mynat} : a + b = a → b = 0 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\nrw ← add_zero a at h,\nrw add_assoc a 0 b at h,\nrw zero_add b at h,\nrw add_left_cancel a b 0,\nrefl,\nexact h,\n"
     },
     {
       "lean": "theorem succ_ne_zero (a : mynat) : succ a ≠ 0 := \n",
-      "editorText": "sorry"
+      "editorText": ""
     },
     {
       "lean": "lemma add_left_eq_zero {{a b : mynat}} (H : a + b = 0) : b = 0 :=\n",
