@@ -329,15 +329,18 @@
     },
     {
       "lean": "lemma add_right_eq_zero {a b : mynat} : a + b = 0 → a = 0 :=\n",
-      "editorText": ""
+      "isSolved": true,
+      "editorText": "cases a,\nintro h,\nrefl,\nintro h,\nrw succ_add at h,\nexfalso,\n\nhave h1 := succ_ne_zero (a+b),\nhave h2 := h1(h),\nexact h2,\n\n\n\n"
     },
     {
       "lean": "theorem add_one_eq_succ (d : mynat) : d + 1 = succ d :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "cases d,\nrw zero_add 1,\nrw one_eq_succ_zero,\nrefl,\n\nrw succ_eq_add_one (succ(d)),\nrefl,\n"
     },
     {
       "lean": "lemma ne_succ_self (n : mynat) : n ≠ succ n :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "cases n with k,\nexact zero_ne_succ 0,\n\nintro h1,\nhave h2 := succ_inj(h1),\nsymmetry at h2,\nrw succ_eq_add_one at h2,\nhave h3 := eq_zero_of_add_right_eq_self(h2),\napply succ_ne_zero 0,\nexact h3,\n\n"
     },
     {
       "lean": "theorem mul_pos (a b : mynat) : a ≠ 0 → b ≠ 0 → a * b ≠ 0 :=\n",
