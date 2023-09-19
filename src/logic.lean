@@ -1,6 +1,5 @@
 
 section propositional
-
 variables P Q R : Prop
 
 
@@ -11,19 +10,36 @@ variables P Q R : Prop
 theorem doubleneg_intro :
   P → ¬¬P  :=
 begin
-  sorry,
+  intro p,
+  intro np,
+  exact np(p),
 end
 
 theorem doubleneg_elim :
   ¬¬P → P  :=
 begin
-  sorry,
+  intro p,
+  by_cases h : P,
+  exact h,
+  have hboom := p(h),
+  by_contradiction hboom,
+  exact p(h),
 end
 
 theorem doubleneg_law :
   ¬¬P ↔ P  :=
 begin
-  sorry,
+  split,
+  intro nnp,
+  by_cases h : P,
+  exact h,
+
+  exfalso,
+  exact nnp(h),
+
+  intro p,
+  intro pboom,
+  exact pboom(p),
 end
 
 ------------------------------------------------
@@ -33,30 +49,64 @@ end
 theorem disj_comm :
   (P ∨ Q) → (Q ∨ P)  :=
 begin
-  sorry,
+  intro poq,
+  cases poq,
+  right,
+  exact poq,
+  left,
+  exact poq,
 end
 
 theorem conj_comm :
   (P ∧ Q) → (Q ∧ P)  :=
 begin
-  sorry,
+  intro hpeq,
+  cases hpeq with hp hq,
+  split,
+  exact hq,
+  exact hp,
 end
 
 
 ------------------------------------------------
 -- Proposições de interdefinabilidade dos →,∨:
 ------------------------------------------------
+inductive Nat
+| O : Nat
+| succ : Nat → Nat
+
+inductive ListNat 
+| nil : ListNat 
+| cons : Nat → ListNat → ListNat
+open Nat
+open ListNat
+#check cons O nil
+  
+
+
+
 
 theorem impl_as_disj_converse :
   (¬P ∨ Q) → (P → Q)  :=
 begin
-  sorry,
+  intro hnpeq,
+  intro p,
+  cases hnpeq with np q,
+  exfalso,
+  exact np(p),
+  exact q,
 end
 
 theorem disj_as_impl :
   (P ∨ Q) → (¬P → Q)  :=
 begin
-  sorry,
+  intro poq,
+  cases poq with p q,
+  intro np,
+  exfalso,
+  exact np(p),
+  intro np,
+  exact q,
 end
 
 
@@ -67,19 +117,42 @@ end
 theorem impl_as_contrapositive :
   (P → Q) → (¬Q → ¬P)  :=
 begin
-  sorry,
+  intro hptoq,
+  intro nq,
+  intro p,
+  have q := hptoq(p),
+  exact nq(q),
 end
 
 theorem impl_as_contrapositive_converse :
   (¬Q → ¬P) → (P → Q)  :=
 begin
-  sorry,
+  intro hnqtonp,
+  intro p,
+  by_cases h : Q,
+  exact h,
+  have np := hnqtonp(h), 
+  exfalso,
+  exact np(p),
 end
 
 theorem contrapositive_law :
   (P → Q) ↔ (¬Q → ¬P)  :=
 begin
-  sorry,
+  split,
+  intro hpq,
+  intro nq,
+  intro p,
+  have q := hpq(p),
+  exact nq(q),
+
+  intro hnqnp,
+  intro p,
+  by_cases q : Q,
+  exact q,
+  have np := hnqnp(q),
+  exfalso,
+  exact np(p),
 end
 
 
@@ -90,7 +163,13 @@ end
 theorem lem_irrefutable :
   ¬¬(P∨¬P)  :=
 begin
-  sorry,
+  intro pnp,
+  apply pnp,
+  right,
+  intro p,
+  apply pnp,
+  left,
+  exact p,
 end
 
 
@@ -101,7 +180,13 @@ end
 theorem peirce_law_weak :
   ((P → Q) → P) → ¬¬P  :=
 begin
-  sorry,
+  intro pqp,
+  intro np,
+  apply np,
+  apply pqp,
+  intro p,
+  exfalso,
+  exact np(p),
 end
 
 
@@ -112,13 +197,23 @@ end
 theorem disj_as_negconj :
   P∨Q → ¬(¬P∧¬Q)  :=
 begin
-  sorry,
+  intro poq,
+  intro npenq,
+  cases npenq with np nq,
+  cases poq with p q,
+  exact np(p),
+  exact nq(q),
 end
 
 theorem conj_as_negdisj :
   P∧Q → ¬(¬P∨¬Q)  :=
 begin
-  sorry,
+  intro peq,
+  intro nponq,
+  cases peq with p q,
+  cases nponq with np nq,
+  exact np(p),
+  exact nq(q),
 end
 
 
@@ -129,15 +224,29 @@ end
 theorem demorgan_disj :
   ¬(P∨Q) → (¬P ∧ ¬Q)  :=
 begin
-  sorry,
+  intro npeq,
+  split,
+  intro p,
+  apply npeq,
+  left,
+  exact p,
+  intro q,
+  apply npeq,
+  right,
+  exact q,
 end
 
 theorem demorgan_disj_converse :
   (¬P ∧ ¬Q) → ¬(P∨Q)  :=
 begin
-  sorry,
+  intro npenq,
+  intro poq,
+  cases poq with p q,
+  cases npenq with np nq,
+  exact np(p),
+  cases npenq with np nq,
+  exact nq(q),
 end
-
 theorem demorgan_conj :
   ¬(P∧Q) → (¬Q ∨ ¬P)  :=
 begin
