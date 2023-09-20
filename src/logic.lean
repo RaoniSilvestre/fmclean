@@ -401,13 +401,24 @@ end
 theorem curry_prop :
   ((P∧Q)→R) → (P→(Q→R))  :=
 begin
-  sorry,
+  intro peqtor,
+  intro p,
+  intro q,
+  have peq : P ∧ Q,
+  split,
+  exact p,
+  exact q,
+  exact peqtor(peq),
 end
 
 theorem uncurry_prop :
   (P→(Q→R)) → ((P∧Q)→R)  :=
 begin
-  sorry,
+  intro ptoqtor,
+  intro peq,
+  cases peq with p q,
+  have qtor := ptoqtor(p),
+  exact qtor(q),
 end
 
 
@@ -418,7 +429,8 @@ end
 theorem impl_refl :
   P → P  :=
 begin
-  sorry,
+  intro p,
+  exact p,
 end
 
 ------------------------------------------------
