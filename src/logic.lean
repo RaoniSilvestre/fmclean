@@ -440,37 +440,59 @@ end
 theorem weaken_disj_right :
   P → (P∨Q)  :=
 begin
-  sorry,
+  intro p,
+  left,
+  exact p,
 end
 
 theorem weaken_disj_left :
   Q → (P∨Q)  :=
 begin
-  sorry,
+  intro q,
+  right,
+  exact q,
 end
 
 theorem weaken_conj_right :
   (P∧Q) → P  :=
 begin
-  sorry,
+  intro peq,
+  cases peq with p q,
+  exact p,
 end
 
 theorem weaken_conj_left :
   (P∧Q) → Q  :=
 begin
-  sorry,
+  intro peq,
+  cases peq with p q,
+  exact q,
 end
 
 theorem conj_idempot :
   (P∧P) ↔ P :=
 begin
-  sorry,
+  split,
+  intro pep,
+  cases pep with p p,
+  exact p,
+  intro p,
+  split,
+  exact p,
+  exact p,
 end
 
 theorem disj_idempot :
   (P∨P) ↔ P  :=
 begin
-  sorry,
+  split,
+  intro pop,
+  cases pop with p p,
+  exact p,
+  exact p,
+  intro p,
+  left,
+  exact p,
 end
 
 end propositional
@@ -492,19 +514,38 @@ variables P Q : U -> Prop
 theorem demorgan_exists :
   ¬(∃x, P x) → (∀x, ¬P x)  :=
 begin
-  sorry,
+  intro nEx,
+  intro Axu,
+  intro p,
+  apply nEx,
+  existsi Axu,
+  exact p,
 end
 
 theorem demorgan_exists_converse :
   (∀x, ¬P x) → ¬(∃x, P x)  :=
 begin
-  sorry,
+  intro AxnP,
+  intro ExP,
+  cases ExP with x ExP,
+  apply AxnP,
+  exact ExP,
 end
 
 theorem demorgan_forall :
   ¬(∀x, P x) → (∃x, ¬P x)  :=
 begin
-  sorry,
+  intro nA,
+  by_contradiction hboom,
+  by_cases (∃x, ¬P x),
+  have ndacerto := hboom(h),
+  exact ndacerto,
+  apply nA,
+  intro u,
+  by_contradiction,
+  apply hboom,
+  existsi u,
+  exact h,
 end
 
 theorem demorgan_forall_converse :
