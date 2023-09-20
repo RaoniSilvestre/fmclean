@@ -250,7 +250,16 @@ end
 theorem demorgan_conj :
   ¬(P∧Q) → (¬Q ∨ ¬P)  :=
 begin
-  sorry,
+  intro h,
+  by_cases p : P,
+  left,
+  intro q,
+  apply h,
+  split,
+  exact p,
+  exact q,
+  right,
+  exact p,
 end
 
 theorem demorgan_conj_converse :
