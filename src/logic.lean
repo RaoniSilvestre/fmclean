@@ -265,19 +265,59 @@ end
 theorem demorgan_conj_converse :
   (¬Q ∨ ¬P) → ¬(P∧Q)  :=
 begin
-  sorry,
+  intro nqnp,
+  intro peq,
+  cases peq with p q,
+  cases nqnp with nq np,
+  exact nq(q),
+  exact np(p),
 end
 
 theorem demorgan_conj_law :
   ¬(P∧Q) ↔ (¬Q ∨ ¬P)  :=
 begin
-  sorry,
+  split,
+  intro h,
+  by_cases p : P,
+  left,
+  intro q,
+  apply h,
+  split,
+  exact p,
+  exact q,
+  right,
+  exact p,
+
+  intro nqnp,
+  intro peq,
+  cases peq with p q,
+  cases nqnp with nq np,
+  exact nq(q),
+  exact np(p),
 end
 
 theorem demorgan_disj_law :
   ¬(P∨Q) ↔ (¬P ∧ ¬Q)  :=
 begin
-  sorry,
+  split,
+  intro npeq,
+  split,
+  intro p,
+  apply npeq,
+  left,
+  exact p,
+  intro q,
+  apply npeq,
+  right,
+  exact q,
+
+  intro npenq,
+  intro poq,
+  cases poq with p q,
+  cases npenq with np nq,
+  exact np(p),
+  cases npenq with np nq,
+  exact nq(q),
 end
 
 ------------------------------------------------
@@ -287,25 +327,70 @@ end
 theorem distr_conj_disj :
   P∧(Q∨R) → (P∧Q)∨(P∧R)  :=
 begin
-  sorry,
+  intro peqor,
+  cases peqor with p qor,
+  cases qor with q r,
+  left,
+  split,
+  exact p,
+  exact q,
+  right,
+  split,
+  exact p,
+  exact r,
 end
 
 theorem distr_conj_disj_converse :
   (P∧Q)∨(P∧R) → P∧(Q∨R)  :=
 begin
-  sorry,
+  intro peqoper,
+  cases peqoper with peq per,
+  split,
+  cases peq with p q,
+  exact p,
+  cases peq with p q,
+  left,
+  exact q,
+  cases per with p r,
+  split,
+  exact p,
+  right,
+  exact r,
 end
 
 theorem distr_disj_conj :
   P∨(Q∧R) → (P∨Q)∧(P∨R)  :=
 begin
-  sorry,
+  intro poqer,
+  cases poqer with p qor,
+  split,
+  left,
+  exact p,
+  left,
+  exact p,
+  cases qor with q r,
+  split,
+  right,
+  exact q,
+  right,
+  exact r,
 end
 
 theorem distr_disj_conj_converse :
   (P∨Q)∧(P∨R) → P∨(Q∧R)  :=
 begin
-  sorry,
+  intro poqepor,
+  cases poqepor with poq por,
+  cases poq with p q,
+  left,
+  exact p,
+  cases por with p r,
+  left,
+  exact p,
+  right,
+  split,
+  exact q,
+  exact r,
 end
 
 
