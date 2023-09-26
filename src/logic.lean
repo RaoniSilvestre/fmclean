@@ -552,26 +552,51 @@ theorem demorgan_forall_converse :
   (∃x, ¬P x) → ¬(∀x, P x)  :=
 begin
   intro ExUnPx,
-  by_cases ¬(∀x, P x),
-  exact h,
-  exfalso,
-  apply h,
-  by_contradiction h1,
-  apply h,
-  intro h2,
-  sorry
+  intro h,
+  cases ExUnPx with a b,
+  apply b,
+  have Pa := h(a),
+  exact Pa,
 end
 
 theorem demorgan_forall_law :
   ¬(∀x, P x) ↔ (∃x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  intro nA,
+  by_contradiction hboom,
+  by_cases (∃x, ¬P x),
+  have ndacerto := hboom(h),
+  exact ndacerto,
+  apply nA,
+  intro u,
+  by_contradiction,
+  apply hboom,
+  existsi u,
+  exact h,
+  intro ExUnPx,
+  intro h,
+  cases ExUnPx with a b,
+  apply b,
+  have Pa := h(a),
+  exact Pa,
 end
 
 theorem demorgan_exists_law :
   ¬(∃x, P x) ↔ (∀x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  intro nEx,
+  intro Axu,
+  intro p,
+  apply nEx,
+  existsi Axu,
+  exact p,
+  intro AxnP,
+  intro ExP,
+  cases ExP with x ExP,
+  apply AxnP,
+  exact ExP,
 end
 
 
