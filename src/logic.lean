@@ -607,37 +607,89 @@ end
 theorem exists_as_neg_forall :
   (∃x, P x) → ¬(∀x, ¬P x)  :=
 begin
-  sorry,
+  intro h,
+  intro foral,
+  cases h with u Pu,
+  have x := foral(u),
+  apply x,
+  exact Pu,
 end
 
 theorem forall_as_neg_exists :
   (∀x, P x) → ¬(∃x, ¬P x)  :=
 begin
-  sorry,
+  intro foral,
+  intro exist,
+  cases exist with u nPu,
+  have Pu := foral(u),
+  apply nPu,
+  exact Pu,
 end
 
 theorem forall_as_neg_exists_converse :
   ¬(∃x, ¬P x) → (∀x, P x)  :=
 begin
-  sorry,
+  intro nExist,
+  intro u,
+  have Pu := P(u),
+  by_contra,
+  apply nExist,
+  existsi u,
+  exact h,
 end
 
 theorem exists_as_neg_forall_converse :
   ¬(∀x, ¬P x) → (∃x, P x)  :=
 begin
-  sorry,
+  intro h1,
+  by_contra,
+  apply h1,
+  intro u,
+  intro Pu,
+  apply h,
+  existsi u,
+  exact Pu,
 end
 
 theorem forall_as_neg_exists_law :
   (∀x, P x) ↔ ¬(∃x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  intro foral,
+  intro exist,
+  cases exist with u nPu,
+  have Pu := foral(u),
+  apply nPu,
+  exact Pu,
+  intro nExist,
+  intro u,
+  have Pu := P(u),
+  by_contra,
+  apply nExist,
+  existsi u,
+  exact h,
 end
 
 theorem exists_as_neg_forall_law :
   (∃x, P x) ↔ ¬(∀x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  
+  intro h,
+  intro foral,
+  cases h with u Pu,
+  have x := foral(u),
+  apply x,
+  exact Pu,
+
+  intro h1,
+  by_contra,
+  apply h1,
+  intro u,
+  intro Pu,
+  apply h,
+  existsi u,
+  exact Pu,
 end
 
 
@@ -648,38 +700,90 @@ end
 theorem exists_conj_as_conj_exists :
   (∃x, P x ∧ Q x) → (∃x, P x) ∧ (∃x, Q x)  :=
 begin
-  sorry,
+  intro existe,
+  split,
+  cases existe with x hx,
+  existsi x,
+  cases hx with px qx,
+  exact px,
+  cases existe with x hx,
+  cases hx with px qx,
+  existsi x,
+  exact qx,
 end
 
 theorem exists_disj_as_disj_exists :
   (∃x, P x ∨ Q x) → (∃x, P x) ∨ (∃x, Q x)  :=
 begin
-  sorry,
+  intro existe,
+  cases existe with x hx,
+  cases hx with px qx,
+  left,
+  existsi x,
+  exact px,
+  right,
+  existsi x,
+  exact qx,
 end
 
 theorem exists_disj_as_disj_exists_converse :
   (∃x, P x) ∨ (∃x, Q x) → (∃x, P x ∨ Q x)  :=
 begin
-  sorry,
+  intro existe,
+  cases existe,
+  cases existe with x hx,
+  existsi x,
+  left,
+  exact hx,
+  cases existe with x hx,
+  existsi x,
+  right,
+  exact hx,
 end
 
 theorem forall_conj_as_conj_forall :
   (∀x, P x ∧ Q x) → (∀x, P x) ∧ (∀x, Q x)  :=
 begin
-  sorry,
+  intro foral,
+  split,
+  intro u,
+  have puqu := foral(u),
+  cases puqu with pu qu,
+  exact pu,
+  intro u,
+  have puqu := foral(u),
+  cases puqu with pu qu,
+  exact qu,
 end
 
 theorem forall_conj_as_conj_forall_converse :
   (∀x, P x) ∧ (∀x, Q x) → (∀x, P x ∧ Q x)  :=
 begin
-  sorry,
+  intro foralconj,
+  cases foralconj with foralP foralQ,
+  intro u,
+  split,
+  have pu := foralP(u),
+  exact pu,
+  have qu := foralQ(u),
+  exact qu,
 end
 
 
 theorem forall_disj_as_disj_forall_converse :
   (∀x, P x) ∨ (∀x, Q x) → (∀x, P x ∨ Q x)  :=
 begin
-  sorry,
+  intro foraldisj,
+  cases foraldisj with foralP foralQ,
+  intro u,
+  left,
+  have pu := foralP(u),
+  exact pu,
+
+  intro u,
+  right,
+  have qu := foralQ(u),
+  exact qu,
 end
 
 
